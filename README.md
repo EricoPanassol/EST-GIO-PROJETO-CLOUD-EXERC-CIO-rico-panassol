@@ -1,1 +1,1 @@
-# EST-GIO-PROJETO-CLOUD-EXERC-CIO-rico-panassol
+# ESTÁGIO PROJETO CLOUD EXERCÍCIO Érico Panassol
