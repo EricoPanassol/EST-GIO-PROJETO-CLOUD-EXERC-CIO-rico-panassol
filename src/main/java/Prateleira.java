@@ -3,17 +3,41 @@ import java.util.List;
 
 public class Prateleira {
 
-    private final double pesoMax;
-    private final double volumeMax;
+    private final static double pesoMax = 100;
+    private final static double volumeMax = 100;
+    private static double controlaPeso = 0;
+    private static double controlaVolume = 0;
     private List<Item> listaItems;
     private int id;
 
     // Construção da prateleira
     public Prateleira(int id) {
         this.id = id;
-        this.pesoMax = 100;
-        this.volumeMax = 100;
         this.listaItems = new ArrayList<>();
+    }
+
+    public double getControlaPeso() {
+        return controlaPeso;
+    }
+
+//    public void setControlaPeso(double controlaPeso) {
+//        this.controlaPeso = controlaPeso;
+//    }
+
+    public double getControlaVolume() {
+        return controlaVolume;
+    }
+
+//    public void setControlaVolume(double controlaVolume) {
+//        this.controlaVolume = controlaVolume;
+//    }
+
+    public double getPesoMax() {
+        return pesoMax;
+    }
+
+    public double getVolumeMax() {
+        return volumeMax;
     }
 
     // Retorna o id da prateleira
@@ -45,17 +69,25 @@ public class Prateleira {
     // Método usado para adicionar um determinado item na prateleira, cuidando para ver
     // se esse mesmo item já está contido nela, se sim, a ]quantidade, peso e volume são incrementados
     // de acordo com as especificações do item a ser adicionado, se não, o item é adicionado
+    // Esse método também contra o peso máximo e volume máximo da prateleira, impedindo a adição
+    // do item caso os limites seja ultrapassados
     public void addItem(Item item){
-        for(Item i : listaItems) {
-            if (this.contemItem(i)) {
-                Item posItem = listaItems.get(this.procurarIndexDoItem(i));
-                posItem.setQuantidade(posItem.getQuantidade() + i.getQuantidade());
-                posItem.setPeso(posItem.getPeso() + i.getPeso());
-                posItem.setVolume(posItem.getVolume() + i.getVolume());
-                return;
+        if(controlaPeso+item.getPeso() <= this.getPesoMax() && controlaVolume+item.getVolume() <= this.getVolumeMax()){
+            for(Item i : listaItems) {
+                if (this.contemItem(i)) {
+                    Item posItem = listaItems.get(this.procurarIndexDoItem(i));
+                    posItem.setQuantidade(posItem.getQuantidade() + item.getQuantidade());
+                    posItem.setPeso(posItem.getPeso() + item.getPeso());
+                    posItem.setVolume(posItem.getVolume() + item.getVolume());
+                    controlaPeso = (controlaPeso + item.getPeso());
+                    controlaVolume = (controlaVolume + item.getVolume());
+                    return;
+                }
             }
+            listaItems.add(item);
+            controlaPeso = (controlaPeso + item.getPeso());
+            controlaVolume = (controlaVolume + item.getVolume());
         }
-        listaItems.add(item);
     }
 
     // Método que permite a aleteração de um determinado item na prateleira
@@ -71,24 +103,30 @@ public class Prateleira {
     // Método usado para remove "x" unidades determinado item na prateleira, cuidando para ver
     // se esse mesmo item já está contido nela, se sim, a quantidade, peso e volume são decrementados
     // de acordo com as especificações do item a ser removido, se não, o item é removido por completo
+    // Faz também o controle do peso e volume máximo da prateleira
     public void retiraUnidades(int quantidade, Item item){
-        for(Item i : listaItems){
-            if(i.equals(item) && this.contemItem(i) && item.getQuantidade() > 1){
-                item.setPeso(i.getPeso() - (item.getPesoUni()*quantidade));
-                item.setVolume(i.getVolume() - (item.getVolUni()*quantidade));
+        for (Item i : listaItems) {
+            if (i.equals(item) && this.contemItem(i) && item.getQuantidade() > 1) {
+                item.setPeso(i.getPeso() - (item.getPesoUni() * quantidade));
+                item.setVolume(i.getVolume() - (item.getVolUni() * quantidade));
                 item.setQuantidade(i.getQuantidade() - quantidade);
+                controlaPeso = (controlaPeso - (item.getPesoUni()*quantidade));
+                controlaVolume = (controlaVolume - (item.getVolUni()*quantidade));
                 return;
-            }
-            else if(i.equals(item) && this.contemItem(i) && i.getQuantidade() == 1){
+            } else if (i.equals(item) && this.contemItem(i) && i.getQuantidade() == 1) {
                 this.removeItemDaPrateleira(item);
                 return;
             }
         }
+
     }
 
     // Método usado para fazer a remoção por completo de um determinado item na prateleira
+    // controlando peso e volume máximo
     public void removeItemDaPrateleira(Item item){
         if(listaItems.contains(item) && item.getQuantidade() > 0){
+            controlaPeso = (controlaPeso - item.getPeso());
+            controlaVolume = (controlaVolume - item.getVolume());
             listaItems.remove(item);
         }
     }

@@ -24,9 +24,6 @@ public class Tests {
         estoque.addNoEstoque(itemList);
 
         System.out.println(estoque.toString());
-
-
-
     }
 
     @Test
@@ -36,7 +33,7 @@ public class Tests {
         Item i0 = new Item("Pão", "Comestível", 10, 10, 2, "Padaria", 1);
 
 
-        Item i4 = new Item("Pão", "Comestível", 10, 10, 2, "Padaria", 1);
+        Item i4 = new Item("Pão", "Comestível", 7, 5, 5, "Padaria", 1);
 
         List<Item> itemList = new ArrayList<>();
 
@@ -90,8 +87,6 @@ public class Tests {
         estoque.retiraUnidadesDoEstoque(1, i0);
 
         System.out.println(estoque.toString());
-
-
     }
 
     @Test
@@ -223,6 +218,35 @@ public class Tests {
         estoque.addNoEstoque(itemList);
 
         System.out.println(estoque.consultaPrateleirasPorSetor("Limpeza"));
+    }
+
+    @Test
+    public void testaPesoEVolumeMax(){
+        Estoque estoque = new Estoque();
+
+//        Item i0 = new Item("Pão", "Comestível", 40, 10, 3, "Padaria", 1);
+//        Item i1 = new Item("Detergente", "Limpeza", 40, 10, 3, "Limpeza", 2);
+//        Item i2 = new Item("Queijo", "Laticínio", 5, 10, 3, "Frios", 3);
+        Item i3 = new Item("Pão", "Comestível", 10, 10, 5, "Padaria", 1);
+        //Item i4 = new Item("Carne", "Comestível",10, 10, 1, "Açogue", 4);
+
+        List<Item> itemList = new ArrayList<>();
+
+//        itemList.add(i0);
+//        itemList.add(i1);
+//        itemList.add(i2);
+        itemList.add(i3);
+        //itemList.add(i4);
+
+        estoque.addNoEstoque(itemList);
+
+        System.out.println(estoque.toString());
+
+        //estoque.retiraUnidadesDoEstoque(1, i3);
+        estoque.removeDoItemEstoque(i3);
+
+        System.out.println(estoque.toString());
+
     }
 
 
