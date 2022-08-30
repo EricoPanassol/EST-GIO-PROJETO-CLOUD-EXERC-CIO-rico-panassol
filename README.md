@@ -3,6 +3,7 @@
 ## Exercício Prático: Controle de Estoque de Mercado 
 
 **Instruções para o desenvolvimento**
+
 O objetivo deste teste é avaliar sua capacidade de resolução de 
 problemas, tomada de decisão e raciocínio lógico. Em outras palavras, 
 queremos ver como você se sai colocando a mão na massa, aplicando suas 
