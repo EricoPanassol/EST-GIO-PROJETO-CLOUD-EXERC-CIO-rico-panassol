@@ -16,7 +16,7 @@ prazo combinado. Então, priorize bem a ordem na qual você desenvolve as
 funcionalidades do projeto, assim poderemos avaliar suas habilidades mesmo 
 que o projeto não esteja 100% completo. 
 
-## Descrição do Test
+## Descrição do Teste
 
 Você deve escrever o código de um sistema de controle de estoque que precisa 
 permitir o gerenciamento do estoque de um mercado. O gerenciamento implica em 
@@ -42,3 +42,27 @@ capacidade máxima de volume e peso suportados.
   preferência em agrupar itens de um mesmo tipo na mesma prateleira. 
 - Feature 11 (Opcional): Front-end que permita a realização das operações 
   elencadas nas Features 1-7 
+  
+## Ferramentas
+  
+No projeto nós usamos majoritariamente Flask para o backend e React para o 
+frontend. Isso não significa que vamos priorizar implementações feitas nessas 
+tecnologias. Você pode usar qualquer tecnologia que melhor lhe servir. Se você 
+não tiver preferência por uma stack específica, sugerimos Flask e React. É importante 
+que o backend e o frontend funcionem de forma desacoplada. Logo, você vai precisar criar 
+APIs para que ocorra a interação entre eles.
+
+## Qualidade de Projeto
+
+Nós valorizamos desenvolvedores que dão atenção aos seguintes pontos: 
+
+- Código limpo, coeso e performático 
+- Documentação compreensiva 
+- Gestão de dependências 
+- Versionamento de código 
+- Testes automatizados 
+- Experiência de usuário
+
+
+  
+  
