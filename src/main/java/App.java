@@ -1,10 +1,9 @@
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Scanner;
 
 public class App {
-    public static void main(String[] args){
+    public static void main(String[] args) {
         String nome, tipo;
         String nomeSetor = "";
         String itemParaAlterarNome, itemParaAlterarTipo;
@@ -14,6 +13,7 @@ public class App {
         int itemParaAlterarIdPrateleria;
         double peso, volume;
         int quantidade, idPrateleira;
+        Item novo;
 
         Scanner sc = new Scanner(System.in);
 
@@ -33,17 +33,18 @@ public class App {
 
         estoque.addNoEstoque(itemList);
 
-        int op = 0;
-        while(op != -1){
+        int op = -1;
+        while (op != 0) {
             System.out.println("\n" +
-                    "[1] - Imprimir estoque \n" +
+                    "[1] - Consultar estoque \n" +
                     "[2] - Adicionar itens \n" +
                     "[3] - Alterar item \n" +
-                    "[4] -  \n" +
-                    "[5] -  \n" +
-                    "[6] -  \n" +
-                    "[7] -  \n" +
-                    "[-1] - Sair");
+                    "[4] - Remover item \n" +
+                    "[5] - Consultar item \n" +
+                    "[6] - Consultar itens por setor \n" +
+                    "[7] - Consultar itens por prateleira \n" +
+                    "[8] - Consultar prateleiras por setor \n" +
+                    "[0] - Sair");
             op = sc.nextInt();
             switch (op) {
                 case 1:
@@ -54,10 +55,10 @@ public class App {
                     System.out.println("Adicione uma lista de itens de acordo com os setores (" +
                             "Padaria - Açogue - Limpeza - Frios)");
                     int countItem = 1;
-                    while(op != -1){
-                        System.out.println("Adicionando o item " + countItem + "\nVoltar [S/N]");
+                    while (op != -1) {
+                        System.out.println("Adicionando o item " + countItem + "\nCancelar - [S/N]");
                         String exit = sc.nextLine().toUpperCase();
-                        if(exit.equals("S")){
+                        if (exit.equals("S")) {
                             break;
                         }
                         System.out.println("Nome: ");
@@ -69,11 +70,11 @@ public class App {
                         System.out.println("Volume: ");
                         volume = sc.nextDouble();
                         sc.nextLine();
-                        System.out.println("Quantiadde: ");
+                        System.out.println("Quantidade: ");
                         quantidade = sc.nextInt();
                         sc.nextLine();
                         System.out.println("Setores \n[1] - Padaria \n[2] - Açogue  \n[3] - Limpeza \n[4] - Frios");
-                        switch(sc.nextInt()){
+                        switch (sc.nextInt()) {
                             case 1:
                                 nomeSetor = "Padaria";
                                 break;
@@ -89,14 +90,14 @@ public class App {
                         }
                         System.out.println("Id prateleira (1 - 5): ");
                         idPrateleira = sc.nextInt();
-                        while(idPrateleira > 6){
+                        while (idPrateleira > 6) {
                             System.out.println("Prateleira incorreta! \nTente novamente");
                             System.out.println("Id prateleira (1 - 5): ");
                             idPrateleira = sc.nextInt();
                         }
                         countItem++;
-                        Item novo = new Item(nome, tipo, peso, volume, quantidade, nomeSetor, idPrateleira);
-                        if(novo.getPeso() >= estoque.getSetor(nomeSetor).getPrateleira(idPrateleira).getPesoMax()){
+                        novo = new Item(nome, tipo, peso, volume, quantidade, nomeSetor, idPrateleira);
+                        if (novo.getPeso() >= estoque.getSetor(nomeSetor).getPrateleira(idPrateleira).getPesoMax()) {
                             System.out.println("Esse item é muito pesado, não é possíve adicionná-lo!");
                             break;
                         }
@@ -107,8 +108,8 @@ public class App {
                     break;
                 case 3:
                     sc.nextLine();
-                    System.out.println("Escolha o item que precisa ser alterado informando suas especificações: ");
                     System.out.println(estoque.toString());
+                    System.out.println("Escolha o item que precisa ser alterado informando suas especificações: ");
                     System.out.println("Nome: ");
                     itemParaAlterarNome = sc.nextLine();
                     System.out.println("Tipo: ");
@@ -118,11 +119,11 @@ public class App {
                     System.out.println("Volume Total: ");
                     itemParaAlterarVolume = sc.nextDouble();
                     sc.nextLine();
-                    System.out.println("Quantiadde: ");
+                    System.out.println("Quantidade: ");
                     itemParaAlterarQuantiadade = sc.nextInt();
                     sc.nextLine();
                     System.out.println("Setores \n[1] - Padaria \n[2] - Açogue  \n[3] - Limpeza \n[4] - Frios");
-                    switch(sc.nextInt()){
+                    switch (sc.nextInt()) {
                         case 1:
                             itemParaAlterarSetor = "Padaria";
                             break;
@@ -138,62 +139,178 @@ public class App {
                     }
                     System.out.println("Id prateleira: ");
                     itemParaAlterarIdPrateleria = sc.nextInt();
-                    while(itemParaAlterarIdPrateleria > 6){
+                    while (itemParaAlterarIdPrateleria > 6) {
                         System.out.println("Prateleira incorreta! \nTente novamente");
                         System.out.println("Id prateleira (1 - 5): ");
                         itemParaAlterarIdPrateleria = sc.nextInt();
                     }
-                    Item aux = new Item(itemParaAlterarNome, itemParaAlterarTipo, itemParaAlterarPeso, itemParaAlterarVolume,
-                            itemParaAlterarQuantiadade, itemParaAlterarSetor, itemParaAlterarIdPrateleria);
-                    if(estoque.getSetor(itemParaAlterarSetor).getPrateleira(itemParaAlterarIdPrateleria).contemItem(aux)){
-                        sc.nextLine();
-                        System.out.println("Insira as novas informações: ");
-                        System.out.println("Nome: ");
-                        nome = sc.nextLine();
-                        System.out.println("Tipo: ");
-                        tipo = sc.nextLine();
-                        System.out.println("Peso: ");
-                        peso = sc.nextDouble();
-                        System.out.println("Volume: ");
-                        volume = sc.nextDouble();
-                        sc.nextLine();
-                        System.out.println("Quantiadde: ");
-                        quantidade = sc.nextInt();
-                        sc.nextLine();
-                        System.out.println("Setores \n[1] - Padaria \n[2] - Açogue  \n[3] - Limpeza \n[4] - Frios");
-                        switch(sc.nextInt()){
-                            case 1:
-                                nomeSetor = "Padaria";
-                                break;
-                            case 2:
-                                nomeSetor = "Açogue";
-                                break;
-                            case 3:
-                                nomeSetor = "Limpeza";
-                                break;
-                            case 4:
-                                nomeSetor = "Frios";
-                                break;
-                        }
+                    Item aux = estoque.getItemNoEstoque(estoque.getSetor(itemParaAlterarSetor).getPrateleira(itemParaAlterarIdPrateleria).getItemNaPrateleira(itemParaAlterarNome, itemParaAlterarTipo));
+                    sc.nextLine();
+                    System.out.println("Insira as novas informações: ");
+                    System.out.println("Nome: ");
+                    nome = sc.nextLine();
+                    System.out.println("Tipo: ");
+                    tipo = sc.nextLine();
+                    System.out.println("Peso: ");
+                    peso = sc.nextDouble();
+                    System.out.println("Volume: ");
+                    volume = sc.nextDouble();
+                    sc.nextLine();
+                    System.out.println("Quantidade: ");
+                    quantidade = sc.nextInt();
+                    sc.nextLine();
+                    System.out.println("Setores \n[1] - Padaria \n[2] - Açogue  \n[3] - Limpeza \n[4] - Frios");
+                    switch (sc.nextInt()) {
+                        case 1:
+                            nomeSetor = "Padaria";
+                            break;
+                        case 2:
+                            nomeSetor = "Açogue";
+                            break;
+                        case 3:
+                            nomeSetor = "Limpeza";
+                            break;
+                        case 4:
+                            nomeSetor = "Frios";
+                            break;
+                    }
+                    System.out.println("Id prateleira (1 - 5): ");
+                    idPrateleira = sc.nextInt();
+                    while (idPrateleira > 6) {
+                        System.out.println("Prateleira incorreta! \nTente novamente");
                         System.out.println("Id prateleira (1 - 5): ");
                         idPrateleira = sc.nextInt();
-                        while(idPrateleira > 6){
-                            System.out.println("Prateleira incorreta! \nTente novamente");
-                            System.out.println("Id prateleira (1 - 5): ");
-                            idPrateleira = sc.nextInt();
-                        }
-                        aux.alteraItem(nome, tipo, peso, volume, quantidade, nomeSetor, idPrateleira);
-                        nao é o aux que tem q ser alterado, mas sim o item origianl
-                        break;
                     }
-                    System.out.println("Item não encontrado");
+                    estoque.alteraItemEstoque(aux, nome, tipo, peso, volume, quantidade, nomeSetor, idPrateleira);
                     break;
                 case 4:
-
+                    sc.nextLine();
+                    System.out.println(estoque.toString());
+                    System.out.println("Escolha o item que precisa ser removido informando suas especificações: ");
+                    System.out.println("Nome: ");
+                    itemParaAlterarNome = sc.nextLine();
+                    System.out.println("Tipo: ");
+                    itemParaAlterarTipo = sc.nextLine();
+                    System.out.println("Peso Total: ");
+                    itemParaAlterarPeso = sc.nextDouble();
+                    System.out.println("Volume Total: ");
+                    itemParaAlterarVolume = sc.nextDouble();
+                    sc.nextLine();
+                    System.out.println("Quantidade: ");
+                    itemParaAlterarQuantiadade = sc.nextInt();
+                    sc.nextLine();
+                    System.out.println("Setores \n[1] - Padaria \n[2] - Açogue  \n[3] - Limpeza \n[4] - Frios");
+                    switch (sc.nextInt()) {
+                        case 1:
+                            itemParaAlterarSetor = "Padaria";
+                            break;
+                        case 2:
+                            itemParaAlterarSetor = "Açogue";
+                            break;
+                        case 3:
+                            itemParaAlterarSetor = "Limpeza";
+                            break;
+                        case 4:
+                            itemParaAlterarSetor = "Frios";
+                            break;
+                    }
+                    System.out.println("Id prateleira: ");
+                    itemParaAlterarIdPrateleria = sc.nextInt();
+                    while (itemParaAlterarIdPrateleria > 6) {
+                        System.out.println("Prateleira incorreta! \nTente novamente");
+                        System.out.println("Id prateleira (1 - 5): ");
+                        itemParaAlterarIdPrateleria = sc.nextInt();
+                    }
+                    novo = estoque.getSetor(itemParaAlterarSetor).getPrateleira(itemParaAlterarIdPrateleria).getItemNaPrateleira(itemParaAlterarNome, itemParaAlterarTipo);
+                    estoque.removeItemDoEstoque(novo);
                     break;
                 case 5:
-
+                    sc.nextLine();
+                    System.out.println(estoque.toString());
+                    System.out.println("Escolha o item que precisa ser removido informando suas especificações: ");
+                    System.out.println("Nome: ");
+                    nome = sc.nextLine();
+                    System.out.println("Tipo: ");
+                    tipo = sc.nextLine();
+                    //sc.nextLine();
+                    System.out.println("Setores \n[1] - Padaria \n[2] - Açogue  \n[3] - Limpeza \n[4] - Frios");
+                    switch (sc.nextInt()) {
+                        case 1:
+                            nomeSetor = "Padaria";
+                            break;
+                        case 2:
+                            nomeSetor = "Açogue";
+                            break;
+                        case 3:
+                            nomeSetor = "Limpeza";
+                            break;
+                        case 4:
+                            nomeSetor = "Frios";
+                            break;
+                    }
+                    System.out.println("Id prateleira: ");
+                    idPrateleira = sc.nextInt();
+                    while (idPrateleira > 6) {
+                        System.out.println("Prateleira incorreta! \nTente novamente");
+                        System.out.println("Id prateleira (1 - 5): ");
+                        idPrateleira = sc.nextInt();
+                    }
+                    System.out.println(estoque.getSetor(nomeSetor).getPrateleira(idPrateleira).getItemNaPrateleira(nome, tipo).toString());
                     break;
+                case 6:
+                    sc.nextLine();
+                    System.out.println("Escolha o setor que deseja ver os itens: ");
+                    System.out.println("Setores \n[1] - Padaria \n[2] - Açogue  \n[3] - Limpeza \n[4] - Frios");
+                    switch (sc.nextInt()) {
+                        case 1:
+                            nomeSetor = "Padaria";
+                            break;
+                        case 2:
+                            nomeSetor = "Açogue";
+                            break;
+                        case 3:
+                            nomeSetor = "Limpeza";
+                            break;
+                        case 4:
+                            nomeSetor = "Frios";
+                            break;
+                    }
+                    System.out.println(estoque.getSetor(nomeSetor).toString());
+                    break;
+                case 7:
+                    sc.nextLine();
+                    System.out.println("Escolha o id da prateleira que deseja ver os itens: ");
+                    idPrateleira = sc.nextInt();
+                    while (idPrateleira > 6) {
+                        System.out.println("Prateleira incorreta! \nTente novamente");
+                        System.out.println("Id prateleira (1 - 5): ");
+                        idPrateleira = sc.nextInt();
+                    }
+                    System.out.println(estoque.procuraItemsNaPrateleiraNoSetorNoEstoque(idPrateleira));
+                    break;
+                case 8:
+                    sc.nextLine();
+                    System.out.println("Escolha o setor que deseja ver as prateleiras: ");
+                    System.out.println("Setores \n[1] - Padaria \n[2] - Açogue  \n[3] - Limpeza \n[4] - Frios");
+                    switch (sc.nextInt()) {
+                        case 1:
+                            nomeSetor = "Padaria";
+                            break;
+                        case 2:
+                            nomeSetor = "Açogue";
+                            break;
+                        case 3:
+                            nomeSetor = "Limpeza";
+                            break;
+                        case 4:
+                            nomeSetor = "Frios";
+                            break;
+                    }
+                    System.out.println(estoque.consultaPrateleirasPorSetor(nomeSetor));
+                    break;
+                case 0:
+                    System.out.println("[*] - Saindo do programa...");
+                    System.exit(1);
                 default:
                     System.out.println("Entrada inválida!");
                     break;
@@ -201,3 +318,4 @@ public class App {
         }
     }
 }
+

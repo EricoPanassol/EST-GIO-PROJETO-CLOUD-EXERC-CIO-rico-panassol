@@ -16,10 +16,12 @@ public class Prateleira {
         this.listaItems = new ArrayList<>();
     }
 
+    // Método que retorna o peso máximo de cada prateleira
     public double getPesoMax() {
         return pesoMax;
     }
 
+    // Método que retorna o volume máximo de cada prateleira
     public double getVolumeMax() {
         return volumeMax;
     }
@@ -27,6 +29,16 @@ public class Prateleira {
     // Retorna o id da prateleira
     public int getId(){
         return this.id;
+    }
+
+    // Método que retorna um determinado item na prateleira
+    public Item getItemNaPrateleira(String nome, String tipo){
+        for(Item item : listaItems){
+            if(item.getNome().equals(nome) && item.getTipo().equals(tipo)){
+                return item;
+            }
+        }
+        return null;
     }
 
     // Método que retorna true se um determinado item está contido na prateleira
@@ -58,7 +70,7 @@ public class Prateleira {
     public void addItem(Item item){
         if(controlaPeso+item.getPeso() <= this.getPesoMax() && controlaVolume+item.getVolume() <= this.getVolumeMax()){
             for(Item i : listaItems) {
-                if (this.contemItem(i)) {
+                if (listaItems.contains(item)) {
                     Item posItem = listaItems.get(this.procurarIndexDoItem(i));
                     posItem.setQuantidade(posItem.getQuantidade() + item.getQuantidade());
                     posItem.setPeso(posItem.getPeso() + item.getPeso());

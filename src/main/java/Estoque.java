@@ -52,6 +52,15 @@ public class Estoque {
         return  null;
     }
 
+    public Item getItemNoEstoque(Item item){
+        for(Setor sAux : setores){
+            if(sAux.getNome().equals(item.getNomeSetor())){
+                return item;
+            }
+        }
+        return null;
+    }
+
     // Método que permite a alteração de um determinado item no estoque
     public void alteraItemEstoque(Item item, String nome, String tipo, double peso, double volume, int quantidade, String nomeSetor, int idPrateleira){
         for(Setor sAux : setores){
@@ -72,13 +81,13 @@ public class Estoque {
                 sAux.retiraUnidadesDoSetor(quantidade, item);
                 return;
             } else {
-                this.removeDoItemEstoque(item);
+                this.removeItemDoEstoque(item);
             }
         }
     }
 
     // Método que permite a remoção de um item por completo e todas suas unidades
-    public void removeDoItemEstoque(Item item){
+    public void removeItemDoEstoque(Item item){
         for (Setor sAux : setores) {
             if (sAux.getNome().equals(item.getNomeSetor())) {
                 sAux.removeItemDoSetor(item);

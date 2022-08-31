@@ -40,6 +40,11 @@ public class Item {
         return peso;
     }
 
+    // Método que retorna o tipo do item
+    public String getTipo(){
+        return this.tipo;
+    }
+
     // Método que retorna o peso unitário do item
     public double getPesoUni() {
         return peso/getQuantidade();
@@ -88,15 +93,15 @@ public class Item {
     // Método que mostra tdoas as especificações do item
     @Override
     public String toString() {
-        return  " Nome              :   " + nome + "\n" +
-                " Tipo              :   " + tipo + "\n" +
-                " Peso Total        :   " + peso + "\n" +
-                " Peso Unitário     :   " + getPesoUni() + "\n" +
-                " Volume            :   " + volume + "\n" +
-                " Volume Unitário   :   " + getVolUni() + "\n" +
-                " Quantidade        :   " + quantidade + "\n" +
-                " Setor             :   " + nomeSetor + "\n" +
-                " Prateleira        :   " + idPrateleira +
+        return  "Nome              :   " + nome + "\n" +
+                "Tipo              :   " + tipo + "\n" +
+                "Peso Total        :   " + peso + "\n" +
+                "Volume Total      :   " + volume + "\n" +
+                "Peso Unitário     :   " + getPesoUni() + "\n" +
+                "Volume Unitário   :   " + getVolUni() + "\n" +
+                "Quantidade        :   " + quantidade + "\n" +
+                "Setor             :   " + nomeSetor + "\n" +
+                "Prateleira        :   " + idPrateleira +
                 "\n\n";
     }
 

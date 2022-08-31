@@ -65,7 +65,7 @@ public class Tests {
 
         //System.out.println(estoque.toString());
 
-        estoque.removeDoItemEstoque(i0);
+        estoque.removeItemDoEstoque(i0);
 
         System.out.println(estoque.toString());
     }
@@ -242,11 +242,37 @@ public class Tests {
 
         System.out.println(estoque.toString());
 
-        estoque.retiraUnidadesDoEstoque(1, i3);
-        //estoque.removeDoItemEstoque(i3);
+        //estoque.retiraUnidadesDoEstoque(1, i3);
+        estoque.removeItemDoEstoque(i3);
 
         System.out.println(estoque.toString());
 
+    }
+
+    @Test
+    public void deveAddNaMesmaPrateleiraItensDoMesmoTipo(){
+        Estoque estoque = new Estoque();
+
+        Item i0 = new Item("Pão", "Comestível", 10, 10, 2, "Padaria", 1);
+        Item i1 = new Item("Detergente", "Limpeza", 10, 10, 2, "Limpeza", 2);
+        Item i2 = new Item("Queijo", "Laticínio", 10, 10, 2, "Frios", 3);
+        Item i3 = new Item("Carne", "Comestível", 10, 10, 5, "Açogue", 4);
+
+        List<Item> itemList = new ArrayList<>();
+
+        itemList.add(i0);
+        itemList.add(i1);
+        itemList.add(i2);
+        itemList.add(i3);
+
+        estoque.addNoEstoque(itemList);
+
+
+        //System.out.println(estoque.toString());
+        //System.out.println("ID PRAT CARNE: " + i3.getIdPrateleira());
+        //System.out.println(i3.toString());
+
+        //System.out.println(estoque.procuraItemsNaPrateleiraNoSetorNoEstoque(1));
     }
 
 
