@@ -16,22 +16,6 @@ public class Prateleira {
         this.listaItems = new ArrayList<>();
     }
 
-    public double getControlaPeso() {
-        return controlaPeso;
-    }
-
-//    public void setControlaPeso(double controlaPeso) {
-//        this.controlaPeso = controlaPeso;
-//    }
-
-    public double getControlaVolume() {
-        return controlaVolume;
-    }
-
-//    public void setControlaVolume(double controlaVolume) {
-//        this.controlaVolume = controlaVolume;
-//    }
-
     public double getPesoMax() {
         return pesoMax;
     }

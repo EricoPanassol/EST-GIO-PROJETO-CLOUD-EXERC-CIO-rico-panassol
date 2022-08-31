@@ -242,8 +242,8 @@ public class Tests {
 
         System.out.println(estoque.toString());
 
-        //estoque.retiraUnidadesDoEstoque(1, i3);
-        estoque.removeDoItemEstoque(i3);
+        estoque.retiraUnidadesDoEstoque(1, i3);
+        //estoque.removeDoItemEstoque(i3);
 
         System.out.println(estoque.toString());
 
