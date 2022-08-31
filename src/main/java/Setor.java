@@ -38,7 +38,7 @@ public class Setor {
     // Método que permite a alteração de um item no setor
     public void alteraItemSetor(Item item, String nome, String tipo, double peso, double volume, int quantidade, String nomeSetor, int idPrateleira){
         for(Prateleira pAux : listPrateleira){
-            if(pAux.contemItem(item)){
+            if(pAux.contemItem(item.getNome(), item.getTipo(), item.getNomeSetor(), item.getIdPrateleira())){
                 pAux.alteraItemPrateleira(item, nome, tipo, peso, volume, quantidade, nomeSetor, idPrateleira);
                 return;
             }
@@ -51,9 +51,9 @@ public class Setor {
     // remove o item
     public void retiraUnidadesDoSetor(int quantidade, Item item){
         for (Prateleira pAux : listPrateleira) {
-            if (pAux.contemItem(item) && item.getQuantidade() > 1) {
+            if (listPrateleira.contains(item) && item.getQuantidade() > 1) {
                 pAux.retiraUnidades(quantidade, item);
-            } else if (pAux.contemItem(item) && item.getQuantidade() == 1) {
+            } else if (listPrateleira.contains(item) && item.getQuantidade() == 1) {
                 this.removeItemDoSetor(item);
             }
         }
@@ -62,7 +62,7 @@ public class Setor {
     // Método que permite a remoção de um item por completo e todas suas unidades
     public void removeItemDoSetor(Item item){
         for (Prateleira pAux : listPrateleira) {
-            if (pAux.contemItem(item)) {
+            if (listPrateleira.contains(item)) {
                 pAux.removeItemDaPrateleira(item);
                 return;
             }

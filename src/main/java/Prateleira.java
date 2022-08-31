@@ -43,9 +43,12 @@ public class Prateleira {
 
     // Método que retorna true se um determinado item está contido na prateleira
     // e false caso o contrário
-    public boolean contemItem(Item item){
+    public boolean contemItem(String nome, String tipo, String nomeSetor, int idPrateleira){
         for(Item i : listaItems){
-            if(i.getNome().equals(item.getNome())){
+            if(i.getNome().equals(nome) &&
+                i.getTipo().equals(tipo) &&
+                i.getNomeSetor().equals(nomeSetor) &&
+                i.getIdPrateleira() == idPrateleira){
                 return true;
             }
         }
@@ -70,7 +73,7 @@ public class Prateleira {
     public void addItem(Item item){
         if(controlaPeso+item.getPeso() <= this.getPesoMax() && controlaVolume+item.getVolume() <= this.getVolumeMax()){
             for(Item i : listaItems) {
-                if (listaItems.contains(item)) {
+                if (this.contemItem(item.getNome(), item.getTipo(), item.getNomeSetor(), item.getIdPrateleira())) {
                     Item posItem = listaItems.get(this.procurarIndexDoItem(i));
                     posItem.setQuantidade(posItem.getQuantidade() + item.getQuantidade());
                     posItem.setPeso(posItem.getPeso() + item.getPeso());
@@ -89,7 +92,7 @@ public class Prateleira {
     // Método que permite a aleteração de um determinado item na prateleira
     public void alteraItemPrateleira(Item item, String nome, String tipo, double peso, double volume, int quantidade, String nomeSetor, int idPrateleira){
         for(Item i : listaItems){
-            if(i.equals(item) && this.contemItem(item)){
+            if(i.equals(item) && listaItems.contains(item)){
                 i.alteraItem(nome, tipo, peso, volume, quantidade, nomeSetor, idPrateleira);
                 return;
             }
@@ -102,14 +105,14 @@ public class Prateleira {
     // Faz também o controle do peso e volume máximo da prateleira
     public void retiraUnidades(int quantidade, Item item){
         for (Item i : listaItems) {
-            if (i.equals(item) && this.contemItem(i) && item.getQuantidade() > 1) {
+            if (i.equals(item) && this.contemItem(i.getNome(), i.getTipo(), i.getNomeSetor(), i.getIdPrateleira()) && i.getQuantidade() > 1) {
                 item.setPeso(i.getPeso() - (item.getPesoUni() * quantidade));
                 item.setVolume(i.getVolume() - (item.getVolUni() * quantidade));
                 item.setQuantidade(i.getQuantidade() - quantidade);
                 controlaPeso = (controlaPeso - (item.getPesoUni()*quantidade));
                 controlaVolume = (controlaVolume - (item.getVolUni()*quantidade));
                 return;
-            } else if (i.equals(item) && this.contemItem(i) && i.getQuantidade() == 1) {
+            } else if (i.equals(item) && this.contemItem(i.getNome(), i.getTipo(), i.getNomeSetor(), i.getIdPrateleira()) && i.getQuantidade() == 1) {
                 this.removeItemDaPrateleira(item);
                 return;
             }

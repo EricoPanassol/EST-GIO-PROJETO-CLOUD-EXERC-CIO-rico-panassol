@@ -33,6 +33,7 @@ public class App {
 
         estoque.addNoEstoque(itemList);
 
+        System.out.println("Bem Vindo ao Sistema de Gerência de Estoque de Mercado");
         int op = -1;
         while (op != 0) {
             System.out.println("\n" +
@@ -114,14 +115,6 @@ public class App {
                     itemParaAlterarNome = sc.nextLine();
                     System.out.println("Tipo: ");
                     itemParaAlterarTipo = sc.nextLine();
-                    System.out.println("Peso Total: ");
-                    itemParaAlterarPeso = sc.nextDouble();
-                    System.out.println("Volume Total: ");
-                    itemParaAlterarVolume = sc.nextDouble();
-                    sc.nextLine();
-                    System.out.println("Quantidade: ");
-                    itemParaAlterarQuantiadade = sc.nextInt();
-                    sc.nextLine();
                     System.out.println("Setores \n[1] - Padaria \n[2] - Açogue  \n[3] - Limpeza \n[4] - Frios");
                     switch (sc.nextInt()) {
                         case 1:
@@ -144,7 +137,7 @@ public class App {
                         System.out.println("Id prateleira (1 - 5): ");
                         itemParaAlterarIdPrateleria = sc.nextInt();
                     }
-                    Item aux = estoque.getItemNoEstoque(estoque.getSetor(itemParaAlterarSetor).getPrateleira(itemParaAlterarIdPrateleria).getItemNaPrateleira(itemParaAlterarNome, itemParaAlterarTipo));
+
                     sc.nextLine();
                     System.out.println("Insira as novas informações: ");
                     System.out.println("Nome: ");
@@ -181,7 +174,9 @@ public class App {
                         System.out.println("Id prateleira (1 - 5): ");
                         idPrateleira = sc.nextInt();
                     }
-                    estoque.alteraItemEstoque(aux, nome, tipo, peso, volume, quantidade, nomeSetor, idPrateleira);
+                    estoque.alteraItemEstoque(estoque.getItem(itemParaAlterarNome, itemParaAlterarTipo, itemParaAlterarSetor, itemParaAlterarIdPrateleria),
+                            nome, tipo, peso, volume, quantidade, nomeSetor, idPrateleira
+                            );
                     break;
                 case 4:
                     sc.nextLine();

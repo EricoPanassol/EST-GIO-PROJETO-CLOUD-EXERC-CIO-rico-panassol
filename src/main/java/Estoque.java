@@ -52,10 +52,11 @@ public class Estoque {
         return  null;
     }
 
-    public Item getItemNoEstoque(Item item){
+    // Método que retorna um item a partir de seu nome, tipo, setor e id da prateleira
+    public Item getItem(String nome, String tipo, String nomeSetor, int idPrateleira){
         for(Setor sAux : setores){
-            if(sAux.getNome().equals(item.getNomeSetor())){
-                return item;
+            if(sAux.getPrateleira(idPrateleira).contemItem(nome, tipo, nomeSetor, idPrateleira)){
+                return sAux.getPrateleira(idPrateleira).getItemNaPrateleira(nome, tipo);
             }
         }
         return null;
